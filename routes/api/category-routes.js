@@ -6,12 +6,12 @@ const { Category, Product } = require("../../models");
 router.get("/", (req, res) => {
   // find all categories
   Category.findAll({
-    // include: [
-    //   {
-    //     model: Product,
-    //     attributes: ["id", "product_name", "price", "stock"],
-    //   },
-    // ],
+    include: [
+      {
+        model: Product,
+        attributes: ["id", "product_name", "price", "stock"],
+      },
+    ],
   })
     .then((dbCategoryData) => {
       res.json(dbCategoryData);
@@ -29,12 +29,12 @@ router.get("/:id", (req, res) => {
     where: {
       id: req.params.id,
     },
-    // include: [
-    //   {
-    //     model: Product,
-    //     attributes: ["id", "product_name", "price", "stock"],
-    //   },
-    // ],
+    include: [
+      {
+        model: Product,
+        attributes: ["id", "product_name", "price", "stock"],
+      },
+    ],
   }).then((dbCategoryData) => {
     if (!dbCategoryData) {
       res.status(404).json({ message: "No category with this id!" });
